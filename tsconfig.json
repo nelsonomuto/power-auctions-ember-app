@@ -1,0 +1,36 @@
+{
+  "extends": "@tsconfig/ember/tsconfig.json",
+  "compilerOptions": {
+    // Strictness settings -- you should *not* change these: Ember code is not
+    // guaranteed to type check with these set to looser values.
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    // You should feel free to change these, especially if you are already
+    // covering them via linting (e.g. with @typescript-eslint).
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    // The combination of `baseUrl` with `paths` allows Ember's classic package
+    // layout, which is not resolvable with the Node resolution algorithm, to
+    // work with TypeScript.
+    "baseUrl": ".",
+    "paths": {
+      "super-rentals/tests/*": [
+        "tests/*"
+      ],
+      "super-rentals/*": [
+        "app/*"
+      ],
+      "*": [
+        "types/*"
+      ]
+    }
+  },
+  "include": [
+    "app/**/*",
+    "tests/**/*",
+    "types/**/*"
+  ]
+}
