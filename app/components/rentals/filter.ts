@@ -6,13 +6,24 @@ interface RentalsFilterSignature {
   query: string;
 }
 
+type RentalModelKey = keyof RentalModel;
+
 export default class RentalsFilterComponent extends Component<RentalsFilterSignature> {
   get results() {
     let { rentals, query } = this.args;
-    if (query) {
+    query = query.toLowerCase();
+    if (query.length > 2) {
       rentals = rentals.filter((rental) => {
-        const matches = rental.title.includes(query);
-        return matches;
+        const propertiesToMatch = ['title', 'city', 'type', 'owner'];
+        for (const property of propertiesToMatch) {
+          const matches = (rental[property as RentalModelKey] as string)
+            .toLowerCase()
+            .includes(query);
+          if (matches) {
+            return true;
+          }
+        }
+        return false;
       });
     }
 
